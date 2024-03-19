@@ -16,6 +16,12 @@ class FileStorage:
         """
         Returns the dictionary of all objects.
         """
+        if cls is not None:
+            filtered_objects = {}
+            for key, obj in self.__objects.items():
+                if type(obj).__name__ == cls.__name__:
+                    filtered_objects[key] = obj
+            return filtered_objects
         return FileStorage.__objects
 
     def new(self, obj):
@@ -53,12 +59,10 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def get_classes(self):
+    def delete(self, obj=None):
+        """ Deletes obj from __objects if it exists
         """
-        Returns a list of class names stored in the __objects dictionary.
-        """
-        classes = set()
-        for key in FileStorage.__objects.keys():
-            class_name = key.split('.')[0]
-            classes.add(class_name)
-        return list(classes)
+        if obj is not None:
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            if key in self.__objects:
+                del self.__objects[key]
