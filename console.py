@@ -33,17 +33,17 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        arg_list = arg.split()
-        class_name = arg_list[0]
+        args = arg.split()
+        class_name = args[0]
 
-        if class_name not in HBNBCommand.classes:
+        if class_name not in self.classes:
             print("** class doesn't exist **")
             return
 
         param_dict = {}
-        for part in arg_list[1:]:
-            if '=' in part:
-                key, value = part.split('=')
+        for a in args[1:]:
+            if '=' in a:
+                key, value = a.split('=')
                 if len(value) >= 2 and value[0] == '"' and value[-1] == '"':
                     value = value[1:-1].replace('_', ' ').replace('\\"', '"')
                 elif '.' in value:
@@ -57,9 +57,14 @@ class HBNBCommand(cmd.Cmd):
                     except ValueError:
                         pass
                 param_dict[key] = value
-        new_instance = HBNBCommand.classes[class_name](**param_dict)
+
+
+        new_instance = eval(class_name)()
+        for key, value in param_dict.items():
+            setattr(new_instance, key, value)
+
         storage.save()
-        print(new_instance.id)
+        print(new_instance)
         storage.save()
 
     def do_show(self, arg):

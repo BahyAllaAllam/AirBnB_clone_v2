@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-from .engine.file_storage import FileStorage
+import os
+
 from .base_model import BaseModel
 from .user import User
 from .state import State
@@ -8,5 +9,11 @@ from .amenity import Amenity
 from .place import Place
 from .review import Review
 
-storage = FileStorage()
+# Determine storage type based on environment variable or configuration
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    from .engine.db_storage import DBStorage
+    storage = DBStorage()
+else:
+    from .engine.file_storage import FileStorage
+    storage = FileStorage()
 storage.reload()
