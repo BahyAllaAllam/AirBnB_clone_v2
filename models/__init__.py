@@ -10,7 +10,9 @@ from .place import Place
 from .review import Review
 
 # Determine storage type based on environment variable or configuration
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+storage_type = os.getenv('HBNB_TYPE_STORAGE')
+
+if storage_type == 'db':
     from .engine.db_storage import DBStorage
     storage = DBStorage()
 else:
