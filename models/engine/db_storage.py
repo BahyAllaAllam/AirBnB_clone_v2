@@ -46,11 +46,11 @@ class DBStorage:
     def all(self, cls=None):
         """Query all objects of a specific class from the database."""
         if cls:
-            objects = self.__session.query(cls).all()
+            objects = self.__session.query(eval(cls)).all()
         else:
             objects = []
-            for cls in base_model.Base.__subclasses__():
-                objects += self.__session.query(cls).all()
+            for eval(cls) in base_model.Base.__subclasses__():
+                objects += self.__session.query(eval(cls)).all()
         return {obj.__class__.__name__ + '.' + obj.id: obj for obj in objects}
 
     def new(self, obj):
