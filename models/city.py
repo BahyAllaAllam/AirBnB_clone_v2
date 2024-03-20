@@ -2,7 +2,9 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from models import storage_type
+from os import getenv
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
 class City(BaseModel):

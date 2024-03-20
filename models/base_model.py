@@ -3,6 +3,7 @@ from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
 from datetime import datetime
+import models
 
 Base = declarative_base()
 
@@ -39,7 +40,6 @@ class BaseModel:
             *args: Variable length argument list.
             **kwargs: Arbitrary keyword arguments.
         """
-        from models import storage
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -72,10 +72,9 @@ class BaseModel:
         """
         Updates the updated_at attribute with the current datetime.
         """
-        from models import storage
         self.updated_at = datetime.now()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """
@@ -92,5 +91,4 @@ class BaseModel:
         return obj_dict
 
     def delete(self):
-        from models import storage
-        storage.delete(self)
+        models.storage.delete(self)

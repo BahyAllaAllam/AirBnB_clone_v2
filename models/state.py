@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
-from models.engine.file_storage import FileStorage
-from models import storage_type
+from os import getenv
+import models
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
 class State(BaseModel):
