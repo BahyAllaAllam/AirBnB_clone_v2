@@ -17,7 +17,7 @@ class State(BaseModel):
         Create a new instance of State with
             optional parameters to represent different states."""
 
-     __tablename__ = 'states'
+    __tablename__ = 'states'
     if storage_type == 'db':
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state",
