@@ -6,7 +6,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """
     User class inherits from BaseModel.
     Public class attributes:
