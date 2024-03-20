@@ -23,11 +23,11 @@ class FileStorage:
         """
         Returns the dictionary of all objects.
         """
-        if cls is not None:
-            filtered_objects = {}
-            for key, obj in self.__objects.items():
-                if type(obj).__name__ == cls.__name__:
-                    filtered_objects[key] = obj
+        filtered_objects = {}
+        if cls:
+            for key in FileStorage.__objects.keys():
+                if cls.__name__ in key:
+                    filtered_objects[key] = FileStorage.__objects[key]
             return filtered_objects
         return FileStorage.__objects
 
@@ -70,7 +70,7 @@ class FileStorage:
     def delete(self, obj=None):
         """ Deletes obj from __objects if it exists
         """
-        if obj is not None:
+        if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
