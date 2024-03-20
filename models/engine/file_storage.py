@@ -55,10 +55,6 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, "r") as f:
                 data = json.load(f)
-            """
-            from models import (
-                BaseModel, User, State, City, Amenity, Place, Review
-            )"""
             for key, value in data.items():
                 class_name, obj_id = key.split('.')
                 cls = eval(class_name)
@@ -74,3 +70,10 @@ class FileStorage:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
+        self.save()
+
+    def close(self):
+        """
+        call reload
+        """
+        self.reload()
