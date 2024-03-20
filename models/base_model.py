@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+BaseModel class represents the base model for other classes in the project.
+"""
+
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
