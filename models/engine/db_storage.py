@@ -31,17 +31,14 @@ class DBStorage:
     def reload(self):
         """Reload data from the database."""
         Base.metadata.create_all(self.__engine)
-        self.__session = sessionmaker(bind=self.__engine)()
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
 
-    def save(self, obj):
+    def save(self):
         """Save the object to the database."""
         self.__session.commit()
-
-    def delete(self, obj=None):
-        """Delete the object from the database."""
-        if obj:
-            self.__session.delete(obj)
-            self.__session.commit()
 
     def all(self, cls=None):
         """Query all objects of a specific class from the database."""
@@ -67,13 +64,13 @@ class DBStorage:
 
     def new(self, obj):
         """Add the object to the current database session."""
-        self.__session.add(obj)
+        if obj:
+            self.__session.add(obj)
 
     def delete(self, obj=None):
         if obj:
             self.__session.delete(obj)
 
-    def reload(self):
-        Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(Session)
+    def close(self):
+        """close session"""
+        self.__session.close()
