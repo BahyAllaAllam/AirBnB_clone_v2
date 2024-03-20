@@ -5,6 +5,8 @@ from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.orm import relationship
 from os import getenv
 
+storage_type = getenv("HBNB_TYPE_STORAGE")
+
 
 class Place(BaseModel):
     """Place (models/place.py):
