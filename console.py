@@ -3,9 +3,18 @@
         a command interpreter for HBNB project."""
 
 import cmd
-from models import (
-    storage, BaseModel, User, State, City, Amenity, Place, Review)
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models import storage
 import sys
+from os import getenv
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
 class HBNBCommand(cmd.Cmd):
@@ -63,9 +72,8 @@ class HBNBCommand(cmd.Cmd):
         for key, value in param_dict.items():
             setattr(new_instance, key, value)
 
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def do_show(self, arg):
         """Show command to print string representation of an instance"""
