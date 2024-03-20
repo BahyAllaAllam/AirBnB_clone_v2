@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """User module"""
 from models.base_model import BaseModel, Base
-import os
+from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
 class User(BaseModel, Base):
