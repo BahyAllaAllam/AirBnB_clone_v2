@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os import getenv
+from os import getenv
 
 from .base_model import BaseModel
 from .user import User

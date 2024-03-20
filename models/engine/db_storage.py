@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.amenity import Amenity
 from models.city import City
