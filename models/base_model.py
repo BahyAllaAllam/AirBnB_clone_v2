@@ -22,7 +22,7 @@ class BaseModel:
                     Date and time when the instance is last updated.
     """
 
-    id = Column(String(60), primary_key=True, nullable=False)
+    id = Column(String(60), primary_key=True, nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -91,4 +91,5 @@ class BaseModel:
         return obj_dict
 
     def delete(self):
+        """Deletes this BaseModel instance from the storage"""
         models.storage.delete(self)

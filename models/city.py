@@ -7,7 +7,7 @@ from os import getenv
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
-class City(BaseModel):
+class City(BaseModel, Base):
     """City (models/city.py):
 
     Purpose: Represents a city.

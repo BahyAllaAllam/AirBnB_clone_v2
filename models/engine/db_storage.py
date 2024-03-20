@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""This module defines a class to manage database storage for hbnb clone."""
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -14,6 +16,7 @@ classes = {"BaseModel": BaseModel, "State": State, "City": City, "User": User,
 
 
 class DBStorage:
+    """Manages storage of hbnb models in a SQL database."""
     __engine = None
     __session = None
 
@@ -68,6 +71,7 @@ class DBStorage:
             self.__session.add(obj)
 
     def delete(self, obj=None):
+        """Delete the object to the current database session."""
         if obj:
             self.__session.delete(obj)
 

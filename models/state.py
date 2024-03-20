@@ -8,7 +8,7 @@ import models
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """State (models/state.py):
 
     Purpose: Represents a state.
@@ -30,6 +30,7 @@ class State(BaseModel):
 
         @property
         def cities(self):
+            """Returns the cities in this State"""
             cities_list = []
             for city in models.storage.all(City).values():
                 if city.state_id == self.id:
