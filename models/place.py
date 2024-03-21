@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 """Place module"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
+import models
 
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
 if storage_type == 'db':
-    metadata = Base.metadata
-    place_amenity = Table("place_amenity", metadata,
+    place_amenity = Table("place_amenity", Base.metadata,
                           Column('place_id', String(60),
                                  ForeignKey('places.id'),
-                                 nullable=False),
+                                 nullable=False, primary_key=True),
                           Column('amenity_id', String(60),
                                  ForeignKey('amenities.id'),
-                                 nullable=False))
+                                 nullable=False, primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -45,16 +45,16 @@ class Place(BaseModel, Base):
 
     __tablename__ = 'places'
     if storage_type == 'db':
-        city_id = Column(String(60), nullable=False)
-        user_id = Column(String(60), nullable=False)
+        city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name = Column(String(128), nullable=False)
-        description = Column(String(1024))
+        description = Column(String(1024), nullable=True)
         number_rooms = Column(Integer, nullable=False, default=0)
         number_bathrooms = Column(Integer, nullable=False, default=0)
         max_guest = Column(Integer, nullable=False, default=0)
         price_by_night = Column(Integer, nullable=False, default=0)
-        latitude = Column(Float)
-        longitude = Column(Float)
+        latitude = Column(Float, nullable=True)
+        longitude = Column(Float, nullable=True)
         amenity_ids = []
 
         reviews = relationship("Review", backref="place",
@@ -83,7 +83,7 @@ class Place(BaseModel, Base):
             place_id equals to the current Place.id
             """
             list_reviews = []
-            all_reviews = self.reviews
+            all_reviews = models.storage.all(Review)
             for review in all_reviews:
                 if review.place_id == Place.id:
                     list_reviews.append(review)
@@ -96,10 +96,10 @@ class Place(BaseModel, Base):
             amenity_ids that contains all Amenity.id linked to the Place
             """
             amenity_objs = []
-            for amenity_id in self.amenity_ids:
-                key = 'Amenity.' + amenity_id
-                if key in FileStorage.__objects:
-                    amenity_objs.append(FileStorage.__objects[key])
+            amenity = models.storage.all(models.amenity.Amenity)
+            for amenity_value in amenity.values():
+                if amenity_value.id in self.amenity_ids:
+                    amenity_objs.append(amenity_value)
             return amenity_objs
 
         @amenities.setter
@@ -108,7 +108,7 @@ class Place(BaseModel, Base):
             adds an Amenity.id to the attribute amenity_ids if obj is
             an instance of Amenity
             """
-            if isinstance(obj, Amenity):
+            if isinstance(obj, models.amenity.Amenity):
                 self.amenity_ids.append(obj.id)
 
     def __init__(self, *args, **kwargs):

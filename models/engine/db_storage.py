@@ -2,7 +2,7 @@
 """This module defines a class to manage database storage for hbnb clone."""
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.amenity import Amenity
@@ -45,25 +45,25 @@ class DBStorage:
 
     def all(self, cls=None):
         """Query all objects of a specific class from the database."""
-        dbobjects = {}
-        if cls:
-            if type(cls) is str and cls in classes:
-                for obj in self.__session.query(classes[cls]).all():
-                    key = str(obj.__class__.__name__) + "." + str(obj.id)
-                    val = obj
-                    dbobjects[key] = val
-            elif cls.__name__ in classes:
-                for obj in self.__session.query(cls).all():
-                    key = str(obj.__class__.__name__) + "." + str(obj.id)
-                    val = obj
-                    dbobjects[key] = val
+        all_objs = {}
+        objs = None
+        if cls and isinstance(cls, str) and cls in classes:
+            objs = self.__session.query(classes[cls]).all()
+            for obj in objs:
+                key = "{}.{}".format(type(obj).__name__, obj.id)
+                all_objs[key] = obj
+        elif cls and not isinstance(cls, str) and cls.__name__ in classes:
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                key = "{}.{}".format(type(obj).__name__, obj.id)
+                all_objs[key] = obj
         else:
-            for k, v in classes.items():
-                for obj in self.__session.query(v).all():
-                    key = str(v.__name__) + "." + str(obj.id)
-                    val = obj
-                    dbobjects[key] = val
-        return dbobjects
+            for value in classes.values():
+                for obj in self.__session.query(value).all():
+                    key = "{}.{}".format(type(obj).__name__, obj.id)
+                    all_objs[key] = obj
+
+        return all_objs
 
     def new(self, obj):
         """Add the object to the current database session."""
