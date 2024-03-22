@@ -69,9 +69,6 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance = eval(class_name)()
         for key, value in param_dict.items():
-            if key not in new_instance.__dict__:
-                print("** Invalid parameter **")
-                return
             setattr(new_instance, key, value)
 
         new_instance.save()
