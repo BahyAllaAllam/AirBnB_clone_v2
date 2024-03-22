@@ -96,8 +96,10 @@ class BaseModel:
         """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = type(self).__name__
-        obj_dict['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        obj_dict['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        obj_dict['created_at'] = self.created_at.strftime(
+                "%Y-%m-%dT%H:%M:%S.%f")
+        obj_dict['updated_at'] = self.updated_at.strftime(
+                "%Y-%m-%dT%H:%M:%S.%f")
         obj_dict.pop('_sa_instance_state', None)
         return obj_dict
 
