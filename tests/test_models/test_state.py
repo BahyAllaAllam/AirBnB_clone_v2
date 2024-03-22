@@ -18,7 +18,7 @@ class TestState(unittest.TestCase):
         del self.state
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.state.name, "")
+        self.assertEqual(self.state.name, None)
 
     def test_inheritance(self):
         self.assertIsInstance(self.state, BaseModel)

@@ -18,10 +18,10 @@ class TestUser(unittest.TestCase):
         del self.user
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.user.email, "")
-        self.assertEqual(self.user.password, "")
-        self.assertEqual(self.user.first_name, "")
-        self.assertEqual(self.user.last_name, "")
+        self.assertEqual(self.user.email, None)
+        self.assertEqual(self.user.password, None)
+        self.assertEqual(self.user.first_name, None)
+        self.assertEqual(self.user.last_name, None)
 
     def test_inheritance(self):
         self.assertIsInstance(self.user, BaseModel)

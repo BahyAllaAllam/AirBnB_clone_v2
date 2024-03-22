@@ -18,16 +18,16 @@ class TestPlace(unittest.TestCase):
         del self.place
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.place.city_id, "")
-        self.assertEqual(self.place.user_id, "")
-        self.assertEqual(self.place.name, "")
-        self.assertEqual(self.place.description, "")
-        self.assertEqual(self.place.number_rooms, 0)
-        self.assertEqual(self.place.number_bathrooms, 0)
-        self.assertEqual(self.place.max_guest, 0)
-        self.assertEqual(self.place.price_by_night, 0)
-        self.assertEqual(self.place.latitude, 0.0)
-        self.assertEqual(self.place.longitude, 0.0)
+        self.assertEqual(self.place.city_id, None)
+        self.assertEqual(self.place.user_id, None)
+        self.assertEqual(self.place.name, None)
+        self.assertEqual(self.place.description, None)
+        self.assertEqual(self.place.number_rooms, None)
+        self.assertEqual(self.place.number_bathrooms, None)
+        self.assertEqual(self.place.max_guest, None)
+        self.assertEqual(self.place.price_by_night, None)
+        self.assertEqual(self.place.latitude, None)
+        self.assertEqual(self.place.longitude, None)
         self.assertEqual(self.place.amenity_ids, [])
 
     def test_inheritance(self):

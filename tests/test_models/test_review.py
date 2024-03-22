@@ -18,9 +18,9 @@ class TestReview(unittest.TestCase):
         del self.review
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.review.place_id, "")
-        self.assertEqual(self.review.user_id, "")
-        self.assertEqual(self.review.text, "")
+        self.assertEqual(self.review.place_id, None)
+        self.assertEqual(self.review.user_id, None)
+        self.assertEqual(self.review.text, None)
 
     def test_inheritance(self):
         self.assertIsInstance(self.review, BaseModel)

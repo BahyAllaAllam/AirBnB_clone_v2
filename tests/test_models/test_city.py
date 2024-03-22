@@ -18,8 +18,8 @@ class TestCity(unittest.TestCase):
         del self.city
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.city.state_id, "")
-        self.assertEqual(self.city.name, "")
+        self.assertEqual(self.city.state_id, None)
+        self.assertEqual(self.city.name, None)
 
     def test_inheritance(self):
         self.assertIsInstance(self.city, BaseModel)

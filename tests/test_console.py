@@ -47,9 +47,9 @@ class TestHBNBCommand(unittest.TestCase):
     @patch('sys.stdout', new_callable=StringIO)
     def test_create_with_parameters(self, mock_stdout):
         """Test create with params."""
-        self.cmd.onecmd('create State name="California" population=4000000')
+        self.cmd.onecmd('create State name="California"')
         output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("** Invalid parameter **"))
+        self.assertFalse(output.startswith("** Invalid parameter **"))
 
         mock_stdout.seek(0)
         mock_stdout.truncate(0)

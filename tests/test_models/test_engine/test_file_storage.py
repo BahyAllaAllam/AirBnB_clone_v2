@@ -16,6 +16,8 @@ from models import storage
 from models.engine.file_storage import FileStorage
 
 
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+                 "only testing file storage")
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):

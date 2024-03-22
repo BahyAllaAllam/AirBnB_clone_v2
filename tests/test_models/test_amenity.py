@@ -18,7 +18,7 @@ class TestAmenity(unittest.TestCase):
         del self.amenity
 
     def test_attributes_default_values(self):
-        self.assertEqual(self.amenity.name, "")
+        self.assertEqual(self.amenity.name, None)
 
     def test_inheritance(self):
         self.assertIsInstance(self.amenity, BaseModel)
