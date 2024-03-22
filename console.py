@@ -67,7 +67,6 @@ class HBNBCommand(cmd.Cmd):
                         pass
                 param_dict[key] = value
 
-
         new_instance = eval(class_name)()
         for key, value in param_dict.items():
             setattr(new_instance, key, value)
