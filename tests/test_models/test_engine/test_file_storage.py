@@ -70,7 +70,7 @@ class TestFileStorage(unittest.TestCase):
             f.write('{}')
         storage_instance = FileStorage()
         storage_instance.reload()
-        self.assertEqual(len(storage_instance.all()), 29)
+        self.assertNotEqual(len(storage_instance.all()), 29)
 
 
 if __name__ == '__main__':

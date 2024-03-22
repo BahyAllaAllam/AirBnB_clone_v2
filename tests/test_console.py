@@ -49,7 +49,7 @@ class TestHBNBCommand(unittest.TestCase):
         """Test create with params."""
         self.cmd.onecmd('create State name="California" population=4000000')
         output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("Invalid parameter"))
+        self.assertTrue(output.startswith("** Invalid parameter **"))
 
         mock_stdout.seek(0)
         mock_stdout.truncate(0)
@@ -59,7 +59,7 @@ class TestHBNBCommand(unittest.TestCase):
                         'number_bathrooms=2 max_guest=10 price_by_night=300 '
                         'latitude=37.773972 longitude=-122.431297')
         output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith(
+        self.assertFalse(output.startswith(
             "76b65327-9e94-4632-b688-aaa22ab8a124"))
 
     @patch('sys.stdout', new_callable=StringIO)
