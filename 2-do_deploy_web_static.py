@@ -7,7 +7,6 @@ from pathlib import Path
 from fabric.api import env, put, run
 
 
-
 def do_deploy(archive_path):
     """Distributes an archive to a web servers."""
     if not Path(archive_path).is_file():
