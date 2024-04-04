@@ -6,7 +6,21 @@
 from pathlib import Path
 from fabric.api import *
 from os.path import exists
+from datetime import datetime
+
 env.hosts = ['3.84.168.105', '100.26.18.236']
+
+
+def do_pack():
+    """Create versions directory if it doesn't exist"""
+    Path("versions").mkdir(parents=True, exist_ok=True)
+    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    filename = "versions/web_static_{}.tgz".format(date)
+    result = local("sudo tar -cvzf {} web_static".format(filename))
+    if result.succeeded:
+        return filename
+    else:
+        return None
 
 
 def do_deploy(archive_path):
