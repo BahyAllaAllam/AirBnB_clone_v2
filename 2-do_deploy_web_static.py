@@ -8,7 +8,9 @@ from fabric.api import *
 from os.path import exists
 from datetime import datetime
 
-env.hosts = ['3.84.168.105', '100.26.18.236']
+env['hosts'] = ['3.84.168.105', '100.26.18.236']
+env['user'] = 'ubuntu'
+env['key_filename'] = '~/.ssh/school'
 
 
 def do_deploy(archive_path):
