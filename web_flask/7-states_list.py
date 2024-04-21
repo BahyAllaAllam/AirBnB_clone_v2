@@ -6,7 +6,7 @@ Flask web application  listening on 0.0.0.0, port 5000
 
 from flask import Flask
 from models import storage
-from models.state import State
+import models
 
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def teardown_appcontext(exception):
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    return render_template("7-states_list.html", states=storage.all(State))
+    return render_template("7-states_list.html", states=storage.all(models.State))
 
 
 if __name__ == '__main__':
