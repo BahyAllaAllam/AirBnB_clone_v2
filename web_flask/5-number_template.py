@@ -4,7 +4,7 @@ Flask web application  listening on 0.0.0.0, port 5000
 """
 
 
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -37,11 +37,8 @@ def number_route(n):
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def number_template_route(n):
-    if isinstance(n, int):
-        return render_template('number_template.html', number=n)
-    else:
-        return 'Invalid input'
+def number_template_route(n=None):
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
